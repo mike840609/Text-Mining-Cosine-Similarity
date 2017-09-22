@@ -1,5 +1,6 @@
 import urllib2
 from Poter  import PorterStemmer
+from Poter2 import Porter2Stemmer
 
 # from nltk.stem.lancaster import LancasterStemmer
 
@@ -7,29 +8,24 @@ from Poter  import PorterStemmer
 # run code shortcut :  ctrl alt n 
 #  load txt file  from  url 
 def loadUrlFromUrl(url_temp): 
-
     temp = ''
-
     for line in urllib2.urlopen(url_temp):
-        # print line
         temp += line
 
     return temp
 
+
 #  load txt file  from  url 
 def loadUrlFromTxt(url_temp):
-    temp = ''
     file = open(url_temp) 
+
     return file.read() 
     
 
-# ========================================================================================================
-
-
-
-#  main program 
+# main program  ========================================================================================================
 
 def main():
+
     # load txt from url
     # str_temp =  loadUrlFromUrl('https://ceiba.ntu.edu.tw/course/35d27d/content/28.txt')
 
@@ -46,22 +42,38 @@ def main():
 
     # print str_temp
     
+    #  poter algorithm , Porter2Stemmer is better 
 
-    #  poter algorithm
-    stemmer = PorterStemmer()
-    # arr = stemmer.stem(arr)
+    # stemmer = PorterStemmer()
+    stemmer = Porter2Stemmer()
 
-
-    #  type : remove same word    
+    
+    # stemming
     results = []
+    
     for i in arr:
-        if i not in results:
-            results.append( stemmer.stem(i , 0 , len(i) - 1 ) )
+            # results.append( stemmer.stem(i , 0 , len(i) - 1 ) )
+            results.append( stemmer.stem(i) )
 
+    #  type : remove same word
+    results = set(results)
+    
+    # results = list(results)
+    print results 
+    print '\n'
+    
 
+    # stop list 
+    stop_temp = loadUrlFromTxt('stopList.txt')
+    stop_temp = stop_temp.lower()
+    stop_arr = set(stop_temp.split())
+    # print stop_arr
 
+    #  subtract stop word 
+    results = results.difference(stop_arr)
     print results
 
+            
 
 if __name__ == '__main__':
     main()
