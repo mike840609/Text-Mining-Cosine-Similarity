@@ -1,4 +1,7 @@
 import urllib2
+from Poter  import PorterStemmer
+
+# from nltk.stem.lancaster import LancasterStemmer
 
 
 # run code shortcut :  ctrl alt n 
@@ -36,17 +39,28 @@ def main():
     #  lower case 
     str_temp = str_temp.lower()
     str_temp = str_temp.replace('.', '')
+    str_temp = str_temp.replace(',', '')
+
     #  split str into array by space 
     arr = str_temp.split()
 
-
-
     # print str_temp
-    print arr
+    
 
-    
-        
-    
+    #  poter algorithm
+    stemmer = PorterStemmer()
+    # arr = stemmer.stem(arr)
+
+
+    #  type : remove same word    
+    results = []
+    for i in arr:
+        if i not in results:
+            results.append( stemmer.stem(i , 0 , len(i) - 1 ) )
+
+
+
+    print results
 
 
 if __name__ == '__main__':
