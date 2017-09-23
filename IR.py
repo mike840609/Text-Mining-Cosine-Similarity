@@ -46,12 +46,14 @@ class IR_operator:
     
     # stemming
     def stemming(self):
-        #  poter algorithm , Porter2Stemmer is better 
-        # stemmer_test = PorterStemmer()
+        # poter algorithm , Porter2Stemmer is better 
+        # stemmer = PorterStemmer()
         stemmer = Porter2Stemmer()
 
         for ele in self.arr:
+            # self.results.append(stemmer.stem(ele, 0,len(ele) -1  ))
             self.results.append( stemmer.stem(ele) )
+            
 
     
     # remove the stopWord & SameWord 
@@ -67,7 +69,7 @@ class IR_operator:
         
         #  subtract stop word 
         self.results = self.results.difference(stop_arr)
-        
+        self.results = sorted(self.results)
 
     # write to txt.file 
     def writeResultToFile(self, path):
