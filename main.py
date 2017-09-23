@@ -1,5 +1,5 @@
 from IR import *
- 
+#  R06725054
 # main program  ========================================================================================================
 def main():
     #  initialize obj
@@ -10,8 +10,8 @@ def main():
     obj.tokenization()
     obj.stemming()
     obj.removeSameWordAndStopWord('Static_txt/stopList.txt')
-    obj.writeResultToFile()
-    
+    obj.writeResultToFile('result.txt')
+
     obj.log()
 
 if __name__ == '__main__':

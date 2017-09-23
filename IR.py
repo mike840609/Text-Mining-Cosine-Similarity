@@ -4,7 +4,6 @@ import re
 from Poter_Algo.Poter import PorterStemmer
 from Poter_Algo.Poter2 import Porter2Stemmer
 
-
 #  text operator 
 class IR_operator:
 
@@ -71,8 +70,8 @@ class IR_operator:
         
 
     # write to txt.file 
-    def writeResultToFile(self):
-            with open("result.txt", "w") as f:
+    def writeResultToFile(self, path):
+            with open(path, "w") as f:
                 for word in self.results:
                     f.write(str(word) +"\n")
 
