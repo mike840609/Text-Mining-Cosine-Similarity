@@ -1,8 +1,17 @@
+# -*- coding: utf-8 -*-
 import urllib2
 import re
 
+import os,sys # 正常模組
+sys.path.append("..")
+
+
 from Poter_Algo.Poter import PorterStemmer
 from Poter_Algo.Poter2 import Porter2Stemmer
+
+
+
+
 
 #  text operator 
 class IR_operator:
@@ -16,7 +25,9 @@ class IR_operator:
         """path to the file which can be the  url or local file
         """
         self.txt_str_temp = self.loadUrlFromTxtOrUrl(txt_file_path)
-        
+    def __init__(self):
+        print "object without parameter"
+        pass
 
     #  load txt file  from  url or local file  
     def loadUrlFromTxtOrUrl(self,path):

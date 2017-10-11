@@ -1,4 +1,4 @@
-from IR import *
+from Model.IR import *
 import os
 
 from Model.DocOperator import DocOperator

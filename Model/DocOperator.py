@@ -1,6 +1,9 @@
 import os
 import re
 
+from IR import IR_operator
+
+
 class DocOperator:
 
     doc_list = []
@@ -33,7 +36,9 @@ class Doc:
 
     id = ''
     content = ''
+    terms_without_set = []
 
     def __init__(self,id ,content):
         self.id = id
         self.content = content
+        
