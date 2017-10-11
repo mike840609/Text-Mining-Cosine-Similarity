@@ -2,17 +2,11 @@
 import urllib2
 import re
 
-import os,sys # 正常模組
-sys.path.append("..")
-
 
 from Poter_Algo.Poter import PorterStemmer
 from Poter_Algo.Poter2 import Porter2Stemmer
 
-
-
-
-
+# singleton to improve performance 
 #  text operator 
 class IR_operator:
 
@@ -20,14 +14,21 @@ class IR_operator:
     arr = []
     results = []
 
-    # constructor 
-    def __init__(self , txt_file_path):
+
+
+    # constructor overloadding 
+    def __init__(self , txt_file_path = None):
         """path to the file which can be the  url or local file
         """
-        self.txt_str_temp = self.loadUrlFromTxtOrUrl(txt_file_path)
-    def __init__(self):
-        print "object without parameter"
-        pass
+        if txt_file_path is not None:
+            self.txt_str_temp = self.loadUrlFromTxtOrUrl(txt_file_path)
+        else:
+            pass
+
+        
+    # load origin_str_temp 
+    def set_str_temp(self,text):
+        self.txt_str_temp = text
 
     #  load txt file  from  url or local file  
     def loadUrlFromTxtOrUrl(self,path):
@@ -57,14 +58,15 @@ class IR_operator:
     
     # stemming
     def stemming(self):
-        # poter algorithm , Porter2Stemmer is better 
-        # stemmer = PorterStemmer()
-        stemmer = Porter2Stemmer()
+        # poter algorithm , Porter2Stemmer is better , but low performance 
+        stemmer = PorterStemmer()
+        # stemmer = Porter2Stemmer()
 
         for ele in self.arr:
-            # self.results.append(stemmer.stem(ele, 0,len(ele) -1  ))
-            self.results.append( stemmer.stem(ele) )
-            
+            self.results.append(stemmer.stem(ele, 0,len(ele) -1  ))
+            # self.results.append( stemmer.stem(ele))
+    
+        print self.results
 
     
     # remove the stopWord & SameWord 
@@ -81,6 +83,16 @@ class IR_operator:
         #  subtract stop word 
         self.results = self.results.difference(stop_arr)
         self.results = sorted(self.results)
+    
+    # remove stopWord
+    def removeStopWord(self,path):
+
+        stop_temp = self.loadUrlFromTxtOrUrl(path)
+
+        stop_arr = stop_temp.lower().split()
+
+        self.arr = [x for x in self.arr if x not in stop_arr]
+
 
     # write to txt.file 
     def writeResultToFile(self, path):
