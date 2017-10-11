@@ -16,10 +16,11 @@ def main():
 
     # hw2  ================================================
 
-    # docOpe_obj = DocOperator("./Static_txt/IRTM/")
-    # doc_list = docOpe_obj.getDoc()
+    docOpe_obj = DocOperator("./Static_txt/IRTM/")
+    doc_list = docOpe_obj.getDoc()
+    
     # for i in doc_list:
-    #     print i.id
+    #     print len(i.terms_without_set)
 
     # hw1 ================================================
     # obj = IR_operator('Static_txt/test.txt')

@@ -61,12 +61,11 @@ class IR_operator:
         # poter algorithm , Porter2Stemmer is better , but low performance 
         stemmer = PorterStemmer()
         # stemmer = Porter2Stemmer()
-
+        self.results = []
         for ele in self.arr:
             self.results.append(stemmer.stem(ele, 0,len(ele) -1  ))
             # self.results.append( stemmer.stem(ele))
-    
-        print self.results
+
 
     
     # remove the stopWord & SameWord 
@@ -85,13 +84,9 @@ class IR_operator:
         self.results = sorted(self.results)
     
     # remove stopWord
-    def removeStopWord(self,path):
+    def removeStopWord(self,stopWord_list):
 
-        stop_temp = self.loadUrlFromTxtOrUrl(path)
-
-        stop_arr = stop_temp.lower().split()
-
-        self.arr = [x for x in self.arr if x not in stop_arr]
+        self.arr = [x for x in self.arr if x not in stopWord_list]
 
 
     # write to txt.file 
