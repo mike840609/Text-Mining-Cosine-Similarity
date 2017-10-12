@@ -63,7 +63,7 @@ class IR_operator:
         # stemmer = Porter2Stemmer()
         self.results = []
         for ele in self.arr:
-            self.results.append(stemmer.stem(ele, 0,len(ele) -1  ))
+            self.results.append(stemmer.stem(ele, 0,len(ele) -1))
             # self.results.append( stemmer.stem(ele))
 
 
@@ -85,9 +85,8 @@ class IR_operator:
     
     # remove stopWord
     def removeStopWord(self,stopWord_list):
-
         self.arr = [x for x in self.arr if x not in stopWord_list]
-
+        
 
     # write to txt.file 
     def writeResultToFile(self, path):
