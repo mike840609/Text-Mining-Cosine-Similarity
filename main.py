@@ -3,7 +3,7 @@ import os
 
 from Model.DocOperator import DocOperator
 from collections import Counter
-
+import collections
 
 #  R06725054
 # main program  ========================================================================================================
@@ -23,29 +23,39 @@ def main():
     # obj.log()
 
     
-    # hw2  ================================================
+    # hw2  ============================================================
     
     # test folder just one doc 
-    docOpe_obj = DocOperator("./Static_txt/IRTM/")
-    # docOpe_obj = DocOperator("./Static_txt/test/")
-    all_doc_list = docOpe_obj.getDoc()
+    # docOpe_obj = DocOperator("./Static_txt/IRTM/")
+    docOpe_obj = DocOperator("./Static_txt/test/")
 
-    # documentFrequency = {}
-    documentFrequency = Counter()
+    all_doc_list = docOpe_obj.getDoc()
+    
+    documents = {}
 
     # low performance 
     for i in all_doc_list:
-        # print i.getTermDict()
-        documentFrequency = documentFrequency + Counter(i.getTermDict())
+    
+        for k,v in i.getTermDict().items():
+            if k in documents.keys():
+                documents[k]['df'] += 1 
+            else:
+                documents[k] = v
+    # document frequency done ==========================================
 
-        # for k,v in i.getTermDict().items():
-        #     if k in documentFrequency.keys():
-        #         documentFrequency[k] += 1 
-        #     else:
-        #         documentFrequency[k] = v
-            
+    # sorted dict ============================================================
+    documents = collections.OrderedDict(sorted(documents.items()))
 
-    print documentFrequency
+    for idx , k in enumerate( documents.keys()):
+        documents[k]['index'] = idx
+
+    
+
+    print documents
+
+
+        
+    
 
         
 

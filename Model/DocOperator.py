@@ -9,8 +9,8 @@ class DocOperator:
     doc_list = []
     stopWord_list = []
 
-    # save all terms Set 
-    allTermsSet = set()
+    documents = {}
+    
 
     def __init__(self , doc_path):
         
@@ -59,14 +59,13 @@ class Doc:
 
     # get all term ,  value == 1 
     def getTermDict(self):
-        self.freqs = dict((k,1) for k in self.getResultstList())
+        self.freqs = dict((k,{'index': 0 ,'df': 1, 'tf-idf': 0 }) for k in self.getResultstList())
         return self.freqs
 
     # get all term 
     def getTermFreqs (self):
         self.freqs = Counter(self.getResultstList())
         return self.freqs
-
 
 
 class Term:
