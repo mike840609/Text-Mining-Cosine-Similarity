@@ -3,7 +3,7 @@ import os
 
 from Model.DocOperator import DocOperator
 from collections import Counter
-import collections
+
 
 #  R06725054
 # main program  ========================================================================================================
@@ -29,35 +29,17 @@ def main():
     # docOpe_obj = DocOperator("./Static_txt/IRTM/")
     docOpe_obj = DocOperator("./Static_txt/test/")
 
-    all_doc_list = docOpe_obj.getDoc()
-    
-    documents = {}
+    docOpe_obj.genrateDoc()
+    docOpe_obj.docFreqCal()
+    docOpe_obj.indexingDict()
 
-    # low performance 
-    for i in all_doc_list:
-    
-        for k,v in i.getTermDict().items():
-            if k in documents.keys():
-                documents[k]['df'] += 1 
-            else:
-                documents[k] = v
-    # document frequency done ==========================================
+    # print docOpe_obj.getDoc()
 
-    # sorted dict ============================================================
-    documents = collections.OrderedDict(sorted(documents.items()))
+    docOpe_obj.writeToFile('dictionary.txt')
 
-    for idx , k in enumerate( documents.keys()):
-        documents[k]['index'] = idx
-
-    
-
-    print documents
+    # print documents
 
 
-        
-    
-
-        
 
 if __name__ == '__main__':
     main()
