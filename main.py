@@ -25,6 +25,7 @@ def main():
     
     # hw2  ============================================================
     
+    # 1/3
     # test folder just one doc 
     # docOpe_obj = DocOperator("./Static_txt/IRTM/")
     docOpe_obj = DocOperator("./Static_txt/test/")
@@ -32,12 +33,13 @@ def main():
     docOpe_obj.genrateDoc()
     docOpe_obj.docFreqCal()
     docOpe_obj.indexingDict()
-
-    # print docOpe_obj.getDoc()
-
     docOpe_obj.writeToFile('dictionary.txt')
 
     # print documents
+
+    # 2/3
+    docOpe_obj.cal_Tf_Idf()
+
 
 
 

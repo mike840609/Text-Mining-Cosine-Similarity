@@ -14,8 +14,6 @@ class IR_operator:
     arr = []
     results = []
 
-
-
     # constructor overloadding 
     def __init__(self , txt_file_path = None):
         """path to the file which can be the  url or local file
@@ -50,7 +48,11 @@ class IR_operator:
         
         # regular expression
         # Strip everything but spaces and alphanumeric
-        self.txt_str_temp = re.sub(r'([^\s\w]|_)+', '', self.txt_str_temp)
+        # self.txt_str_temp = re.sub(r'([^\s\w]|_)+', ' ', self.txt_str_temp)
+        
+        # keep only letter
+        self.txt_str_temp = re.sub('[^a-zA-Z]+', ' ', self.txt_str_temp)
+        
 
         #  split str into array by space
         self.arr = self.txt_str_temp.split()
@@ -69,6 +71,7 @@ class IR_operator:
 
     
     # remove the stopWord & SameWord 
+    '''
     def removeSameWordAndStopWord(self,path):
         """path to the file which can be the  url or local file
         """
@@ -82,7 +85,7 @@ class IR_operator:
         #  subtract stop word 
         self.results = self.results.difference(stop_arr)
         self.results = sorted(self.results)
-    
+    '''
     # remove stopWord
     def removeStopWord(self,stopWord_list):
         self.arr = [x for x in self.arr if x not in stopWord_list]
