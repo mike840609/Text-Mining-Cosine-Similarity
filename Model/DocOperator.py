@@ -3,6 +3,9 @@ import re
 import math
 import collections
 
+import os
+import errno
+
 from IR import IR_operator
 from collections import Counter
 
@@ -62,7 +65,7 @@ class DocOperator:
 
         for doc in self.doc_list:
 
-            print doc.id + '================================================================================='
+            # print doc.id + '================================================================================='
             tf_idf_unit_vector_addition = 0 
             for term in doc.getTermFrequency():
 
@@ -71,10 +74,9 @@ class DocOperator:
                 idf = math.log10(N/df)
                 tf_idf = tf * idf
 
-                
                 # print 'N : ' + str(N)
                 # print 'tf : ' + str(tf)  + '  df :' + str(df) + '   idf :'+ str(idf) 
-                print 'term :' + str(term) + '   tf-idf :' + str(tf_idf)
+                # print 'term :' + str(term) + '   tf-idf :' + str(tf_idf)
 
                 tf_idf_unit_vector_addition += math.pow(tf_idf,2)
                 doc.getTermDict()[term]['tf-idf'] = tf_idf
@@ -84,7 +86,28 @@ class DocOperator:
             unit_denominator = math.sqrt(tf_idf_unit_vector_addition)
             for term in doc.getTermFrequency():
                 doc.getTermDict()[term]['tf-idf'] /= unit_denominator
-                print 'term :' + str(term) + '   tf-idf :' + str(doc.getTermDict()[term]['tf-idf'])
+                # print 'term :' + str(term) + '   tf-idf :' + str(doc.getTermDict()[term]['tf-idf'])
+    
+
+    def write_Tf_Idf_ToFile(self,path):
+
+        for doc in self.doc_list:
+            
+            self.make_sure_path_exists(path)
+
+            file_path = path +'%s.txt' %str(doc.id)
+            
+
+            with open(file_path , "w") as f :
+
+                # print "document id: " + str(doc.id) + '================================================='
+                # print "doc length : " + str(len(doc.getTermFrequency()))
+                f.write(str(len(doc.getTermFrequency())) + '\n')
+
+                for term in doc.getTermFrequency():
+                    # print  self.documentsFreq[term]['index']
+                    # print  doc.getTermDict()[term]['tf-idf']
+                    f.write('{:<15}'.format(self.documentsFreq[term]['index']) + '{:<30}'.format(doc.getTermDict()[term]['tf-idf'])+ '\n' )
 
 
 
@@ -109,7 +132,12 @@ class DocOperator:
             # with open(path , "w") as f :
             #     f.write("123" + '')
             
-
+    def make_sure_path_exists(self , path):
+        try:
+            os.makedirs(path)
+        except OSError as exception:
+            if exception.errno != errno.EEXIST:
+                raise
 
     
 #  each Doc Implement 

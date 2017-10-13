@@ -39,6 +39,7 @@ def main():
 
     # 2/3
     docOpe_obj.cal_Tf_Idf()
+    docOpe_obj.write_Tf_Idf_ToFile('./Tf-Idf_unit_vector/')
 
 
 
