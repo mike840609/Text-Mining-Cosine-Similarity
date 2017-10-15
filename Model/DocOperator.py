@@ -1,23 +1,18 @@
 import os
 import re
 import math
-import collections
-
 import os
 import errno
-
 from IR import IR_operator
 from collections import Counter
-
+import collections
 
 class DocOperator:
 
     doc_list = []
     stopWord_list = []
-
     documentsFreq = {}
     
-
     def __init__(self , doc_path):
         
         self.doc_path = doc_path
@@ -31,14 +26,16 @@ class DocOperator:
         all_files = os.listdir(self.doc_path)
 
         for file_name in all_files:
-
-            file = open(self.doc_path + file_name)
-            file_name = re.sub(r'([^0-9]|_)+', '', file_name)
-
-            doc_obj = Doc(file_name , file.read(), self.stopWord_list)
-
-            self.doc_list.append(doc_obj)
+            try:
+                file = open(self.doc_path + file_name)
+                file_name = re.sub(r'([^0-9]|_)+', '', file_name)
+                doc_obj = Doc(file_name , file.read(), self.stopWord_list)
+                self.doc_list.append(doc_obj)
+            finally:
+                file.close()
+                print ('file {} done'.format(file_name))
         
+
         return self.doc_list
     
     def docFreqCal(self):
@@ -139,7 +136,44 @@ class DocOperator:
             if exception.errno != errno.EEXIST:
                 raise
 
-    
+
+    # calculate cosine similarity
+    def calCosineSimilarity(self, folderPath,fileName1 , fileName2):
+
+        file1 = open(folderPath + str(fileName1) + '.txt' )
+        file2 = open(folderPath + str(fileName2) + '.txt' )
+
+        file1_dict = {}
+        file2_dict = {}
+
+        for line in  file1.read().splitlines()[1:]:
+            items = line.split()
+            id = self.safe_list_get(items,0) 
+            tf_idf = self.safe_list_get(items ,1)
+            file1_dict[str(id)] = float(tf_idf)
+
+        for line in  file2.read().splitlines()[1:]:
+            items = line.split()
+            id = self.safe_list_get(items,0) 
+            tf_idf = self.safe_list_get(items ,1)
+            file2_dict[str(id)] = float(tf_idf)
+
+        
+        intersection =  set(file1_dict.keys()) & set(file2_dict.keys())  
+        consine_similarity = 0
+
+        for key in intersection:
+            consine_similarity += file1_dict[key] * file1_dict[key]
+        
+        return consine_similarity
+
+    # access items safely
+    def safe_list_get (self,l, idx):
+        try:
+            return l[idx]
+        except IndexError:
+            return '0'
+
 #  each Doc Implement 
 class Doc:
 
@@ -178,5 +212,3 @@ class Doc:
 
     def getTermFrequency(self):
         return self.termsFrequency
-
-

@@ -6,6 +6,9 @@ import re
 from Poter_Algo.Poter import PorterStemmer
 from Poter_Algo.Poter2 import Porter2Stemmer
 
+import nltk
+
+
 # singleton to improve performance 
 #  text operator 
 class IR_operator:
@@ -59,13 +62,17 @@ class IR_operator:
 
     
     # stemming
+    stemmer = PorterStemmer()
     def stemming(self):
         # poter algorithm , Porter2Stemmer is better , but low performance 
-        stemmer = PorterStemmer()
+
+        # stemmer = PorterStemmer()
         # stemmer = Porter2Stemmer()
+
         self.results = []
+
         for ele in self.arr:
-            self.results.append(stemmer.stem(ele, 0,len(ele) -1))
+            self.results.append(self.stemmer.stem(ele, 0,len(ele) -1))
             # self.results.append( stemmer.stem(ele))
 
 
