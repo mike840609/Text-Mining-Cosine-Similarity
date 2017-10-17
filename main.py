@@ -26,7 +26,7 @@ def main():
 
     
     # HW2   ==============================================================================
-
+    
     # 1/3  Calculate DocumentFrequency & Generate dictionary.txt =========================  
     docOpe_obj = DocOperator("./Static_txt/IRTM/")
     # docOpe_obj = DocOperator("./Static_txt/test/")
@@ -43,6 +43,7 @@ def main():
     docOpe_obj.cal_Tf_Idf()
     docOpe_obj.write_Tf_Idf_ToFile('./Tf-Idf_unit_vector/')
     print ('tf-idf task done')
+
 
     # 3/3 Calculate Consine Similarity between two Doc =======================================
     

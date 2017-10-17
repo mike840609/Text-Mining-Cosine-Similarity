@@ -54,7 +54,6 @@ class DocOperator:
         for idx , k in enumerate( self.documentsFreq.keys()):
             self.documentsFreq[k]['index'] = (idx + 1)
     
-
     # calculate each terms tf-idf
     def cal_Tf_Idf(self):
         
@@ -64,16 +63,13 @@ class DocOperator:
 
             # print doc.id + '================================================================================='
             tf_idf_unit_vector_addition = 0 
+
             for term in doc.getTermFrequency():
 
                 tf =  doc.getTermFrequency()[term]
                 df = float(self.documentsFreq[term]['df'])
                 idf = math.log10(N/df)
                 tf_idf = tf * idf
-
-                # print 'N : ' + str(N)
-                # print 'tf : ' + str(tf)  + '  df :' + str(df) + '   idf :'+ str(idf) 
-                # print 'term :' + str(term) + '   tf-idf :' + str(tf_idf)
 
                 tf_idf_unit_vector_addition += math.pow(tf_idf,2)
                 doc.getTermDict()[term]['tf-idf'] = tf_idf
@@ -85,7 +81,6 @@ class DocOperator:
                 doc.getTermDict()[term]['tf-idf'] /= unit_denominator
                 # print 'term :' + str(term) + '   tf-idf :' + str(doc.getTermDict()[term]['tf-idf'])
     
-
     def write_Tf_Idf_ToFile(self,path):
 
         for doc in self.doc_list:
@@ -105,9 +100,6 @@ class DocOperator:
                     # print  self.documentsFreq[term]['index']
                     # print  doc.getTermDict()[term]['tf-idf']
                     f.write('{:<15}'.format(self.documentsFreq[term]['index']) + '{:<30}'.format(doc.getTermDict()[term]['tf-idf'])+ '\n' )
-
-
-
 
     def getDoc(self):
         return self.documentsFreq
@@ -136,7 +128,6 @@ class DocOperator:
             if exception.errno != errno.EEXIST:
                 raise
 
-
     # calculate cosine similarity
     def calCosineSimilarity(self, folderPath,fileName1 , fileName2):
 
@@ -151,19 +142,26 @@ class DocOperator:
             id = self.safe_list_get(items,0) 
             tf_idf = self.safe_list_get(items ,1)
             file1_dict[str(id)] = float(tf_idf)
+        
+        
 
         for line in  file2.read().splitlines()[1:]:
             items = line.split()
             id = self.safe_list_get(items,0) 
             tf_idf = self.safe_list_get(items ,1)
             file2_dict[str(id)] = float(tf_idf)
+        
 
         
+        print ('==================================================')
         intersection =  set(file1_dict.keys()) & set(file2_dict.keys())  
+        print intersection
+        print ('==================================================')
         consine_similarity = 0
 
         for key in intersection:
-            consine_similarity += file1_dict[key] * file1_dict[key]
+            print ('key : {} file1 : {}   file2 : {}'.format(str(key),str(file1_dict[key]),str(file2_dict[key])))
+            consine_similarity += file1_dict[key] * file2_dict[key]
         
         return consine_similarity
 
@@ -197,7 +195,6 @@ class Doc:
         self.initTermFrequency()
         self.calTermFrequency()
         
-
     def initTermFrequency(self):
         
         results_set = set(self.obj.results)

@@ -62,7 +62,7 @@ class IR_operator:
 
     
     # stemming
-    stemmer = PorterStemmer()
+    # stemmer = PorterStemmer()
     def stemming(self):
         # poter algorithm , Porter2Stemmer is better , but low performance 
 
@@ -72,7 +72,7 @@ class IR_operator:
         self.results = []
 
         for ele in self.arr:
-            self.results.append(self.stemmer.stem(ele, 0,len(ele) -1))
+            self.results.append(PorterStemmer().stem(ele, 0,len(ele) -1))
             # self.results.append( stemmer.stem(ele))
 
 
