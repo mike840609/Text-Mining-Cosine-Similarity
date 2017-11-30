@@ -177,9 +177,11 @@ class Doc:
 
     id = '' 
     obj = ''
+    # obj.result 為 steeming 後的內文
     all_terms_length = 0
     terms = {}
     termsFrequency = {}
+    
 
     def __init__(self,id ,content, stopWord_list):
 
