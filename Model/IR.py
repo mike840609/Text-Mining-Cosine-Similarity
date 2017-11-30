@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-import urllib2
+# import urllib2
 import re
 
+from .Poter_Algo.Poter import PorterStemmer
+from .Poter_Algo.Poter2 import Porter2Stemmer
 
-from Poter_Algo.Poter import PorterStemmer
-from Poter_Algo.Poter2 import Porter2Stemmer
 
-import nltk
+# import nltk
 
 
 # singleton to improve performance 
@@ -35,8 +35,8 @@ class IR_operator:
     def loadUrlFromTxtOrUrl(self,path):
         if "http" in path: 
             temp = ''
-            for line in urllib2.urlopen(path):
-                temp += line
+            # for line in urllib2.urlopen(path):
+            #     temp += line
             return temp
 
         else:
@@ -106,4 +106,4 @@ class IR_operator:
 
     # debug log
     def log(self):
-        print self.results
+        print(self.results)

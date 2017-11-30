@@ -3,7 +3,7 @@ import re
 import math
 import os
 import errno
-from IR import IR_operator
+from .IR import IR_operator
 from collections import Counter
 import collections
 
@@ -155,7 +155,7 @@ class DocOperator:
         
         print ('==================================================')
         intersection =  set(file1_dict.keys()) & set(file2_dict.keys())  
-        print intersection
+        print (intersection)
         print ('==================================================')
         consine_similarity = 0
 
