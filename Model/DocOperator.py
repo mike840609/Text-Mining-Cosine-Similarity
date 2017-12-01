@@ -7,6 +7,7 @@ from .IR import IR_operator
 from collections import Counter
 import collections
 
+
 class DocOperator:
 
     doc_list = []
@@ -177,7 +178,7 @@ class Doc:
 
     id = '' 
     obj = ''
-    # obj.result 為 steeming 後的內文
+    # obj.result => after steeming 
     all_terms_length = 0
     terms = {}
     termsFrequency = {}

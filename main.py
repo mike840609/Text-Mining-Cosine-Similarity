@@ -8,6 +8,8 @@ from collections import Counter
 from Model.TrainingClassHolder import TrainingClassHolder
 
 
+#-*- coding: UTF-8 -*- 
+
 
 #  R06725054
 # main program  ========================================================================================================
