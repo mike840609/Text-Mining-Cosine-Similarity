@@ -60,8 +60,9 @@ def main():
     '''
     # HW3 =====================================================================================
     trainingData = TrainingClassHolder("./Static_txt/training.txt")
-    trainingData.selectFeature(docOpe_obj.doc_list)
-        
+    result_dict = trainingData.selectFeature(docOpe_obj.doc_list)
+    docOpe_obj.writeDictToFile('output.txt', result_dict)
+
 
 
 if __name__ == '__main__':

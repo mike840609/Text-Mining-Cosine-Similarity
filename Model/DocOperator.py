@@ -34,7 +34,7 @@ class DocOperator:
                 self.doc_list.append(doc_obj)
             finally:
                 file.close()
-                print ('file {} done'.format(file_name))
+                # print ('file {} done'.format(file_name))
         
 
         return self.doc_list
@@ -121,7 +121,12 @@ class DocOperator:
 
             # with open(path , "w") as f :
             #     f.write("123" + '')
-            
+    
+    def writeDictToFile(self, path , dictionary):
+        with open(path , "w") as f :
+            for k , v in dictionary.items():
+                f.write('{:<15}'.format(k) + '{:<30}'.format(v)+ '\n' )
+
     def make_sure_path_exists(self , path):
         try:
             os.makedirs(path)

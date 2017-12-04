@@ -3,6 +3,7 @@ from Model.DocOperator import DocOperator
 import json 
 from collections import Counter
 import math
+import collections
 
 
 class TrainingClassHolder:
@@ -173,14 +174,20 @@ class TrainingClassHolder:
                         class_score += self.class_probability_score[term][classId] * word_counter.get(term , 0 )
                         self.testing_record[doc.id][classId] = class_score    
 
-
-
-                    
-                
-
-
-        print (json.dumps(self.testing_record, indent=2))
+        # print (json.dumps(self.testing_record, indent=2))
         # print (self.classTermScore)
+
+        # generate output doc ====================================
+
+        int_docs_info = {int(k) : v for k, v in self.testing_record.items()}
+        result_dict = {}
+        for k , v in sorted(int_docs_info.items()):
+             result_dict[k] = max(v, key=v.get)
+        # print (result_dict) 
+        return result_dict
+
+
+
 
 
 
