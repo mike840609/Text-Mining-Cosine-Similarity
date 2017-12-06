@@ -7,11 +7,14 @@ from collections import Counter
 
 from Model.TrainingClassHolder import TrainingClassHolder
 
+import nltk
 
 
 #  R06725054
 # main program  ========================================================================================================
 def main():
+    nltk.download('wordnet')
+
     #  initialize obj
     
     # you can use the url or local file to initialize object
@@ -63,6 +66,8 @@ def main():
     result_dict = trainingData.selectFeature(docOpe_obj.doc_list)
     docOpe_obj.writeDictToFile('output.txt', result_dict)
 
+
+    
 
 
 if __name__ == '__main__':
