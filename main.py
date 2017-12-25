@@ -13,7 +13,9 @@ import nltk
 #  R06725054
 # main program  ========================================================================================================
 def main():
-    nltk.download('wordnet')
+    
+    # lemmatization
+    # nltk.download('wordnet')
 
     #  initialize obj
     
@@ -29,7 +31,6 @@ def main():
     # obj.writeResultToFile('result.txt')
     # obj.log()
 
-    
     # HW2   ==============================================================================
     
     # 1/3  Calculate DocumentFrequency & Generate dictionary.txt =========================  
@@ -44,31 +45,24 @@ def main():
     # print documents
     print ('Document frequenct task done')
     
-
     # 2/3 Calctulate TF-IDF & Generate unit vector for terms in each documents's ===========
-    '''
     docOpe_obj.cal_Tf_Idf()
     docOpe_obj.write_Tf_Idf_ToFile('./Tf-Idf_unit_vector/')
     print ('tf-idf task done')
-    '''
 
     # 3/3 Calculate Consine Similarity between two Doc =======================================
-    '''
+    
     txt1 = 1
     txt2 = 2
 
     consine_similarity = docOpe_obj.calCosineSimilarity("./Tf-Idf_unit_vector/", txt1 , txt2)
     print ('file : {}   \nfile : {} \nconsine similarity is : {}'.format(str(txt1) ,str(txt2) ,str(consine_similarity)) )
     print ('all task done')
-    '''
-    # HW3 =====================================================================================
-    trainingData = TrainingClassHolder("./Static_txt/training.txt")
-    result_dict = trainingData.selectFeature(docOpe_obj.doc_list)
-    docOpe_obj.writeDictToFile('output.txt', result_dict)
-
-
     
-
+    # HW3 =====================================================================================
+    # trainingData = TrainingClassHolder("./Static_txt/training.txt")
+    # result_dict = trainingData.selectFeature(docOpe_obj.doc_list)
+    # docOpe_obj.writeDictToFile('output.txt', result_dict)
 
 if __name__ == '__main__':
     main()

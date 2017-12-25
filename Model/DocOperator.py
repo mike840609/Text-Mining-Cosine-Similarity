@@ -6,12 +6,15 @@ import errno
 from .IR import IR_operator
 from collections import Counter
 import collections
-
+import json
 
 class DocOperator:
-
+    
+    # doc object list 
     doc_list = []
+
     stopWord_list = []
+
     documentsFreq = {}
     
     def __init__(self , doc_path):
@@ -20,6 +23,7 @@ class DocOperator:
         stop_temp = open('Static_txt/stopList.txt').read()
         self.stopWord_list = stop_temp.lower().split()
 
+    
     def genrateDoc(self):
 
         self.doc_list = []
@@ -34,35 +38,38 @@ class DocOperator:
                 self.doc_list.append(doc_obj)
             finally:
                 file.close()
-                # print ('file {} done'.format(file_name))
-        
-
+                
         return self.doc_list
     
     def docFreqCal(self):
-            for i in self.doc_list:    
-                for k,v in i.getTermDict().items():
-                    
-                    if k in self.documentsFreq.keys():
-                        self.documentsFreq[k]['df'] += 1 
-                    else:
-                        self.documentsFreq[k] = v
+        for i in self.doc_list:    
+            for k,v in i.getTermDict().items():
 
+                if k in self.documentsFreq.keys():
+                    self.documentsFreq[k]['df'] += 1 
+                else:
+                    self.documentsFreq[k] = v
+                    
+        # print (json.dumps(self.documentsFreq, indent=2))
+    
+    # dictionary indexing 
     def indexingDict(self):
         
         self.documentsFreq = collections.OrderedDict(sorted(self.documentsFreq.items()))
         
         for idx , k in enumerate( self.documentsFreq.keys()):
             self.documentsFreq[k]['index'] = (idx + 1)
-    
+        
+        # print (json.dumps(self.documentsFreq, indent=2))
+
     # calculate each terms tf-idf
     def cal_Tf_Idf(self):
         
+        # 1095 
         N = float(len(self.doc_list))
 
         for doc in self.doc_list:
 
-            # print doc.id + '================================================================================='
             tf_idf_unit_vector_addition = 0 
 
             for term in doc.getTermFrequency():
@@ -74,7 +81,6 @@ class DocOperator:
 
                 tf_idf_unit_vector_addition += math.pow(tf_idf,2)
                 doc.getTermDict()[term]['tf-idf'] = tf_idf
-            
 
             # tf_idf unit vector
             unit_denominator = math.sqrt(tf_idf_unit_vector_addition)
@@ -90,7 +96,6 @@ class DocOperator:
 
             file_path = path +'%s.txt' %str(doc.id)
             
-
             with open(file_path , "w") as f :
 
                 # print "document id: " + str(doc.id) + '================================================='
@@ -100,7 +105,7 @@ class DocOperator:
                 for term in doc.getTermFrequency():
                     # print  self.documentsFreq[term]['index']
                     # print  doc.getTermDict()[term]['tf-idf']
-                    f.write('{:<15}'.format(self.documentsFreq[term]['index']) + '{:<30}'.format(doc.getTermDict()[term]['tf-idf'])+ '\n' )
+                    f.write( '{:<15}'.format(self.documentsFreq[term]['index']) + '{:<30}'.format(doc.getTermDict()[term]['tf-idf']) + '\n')
 
     def getDoc(self):
         return self.documentsFreq
@@ -149,16 +154,12 @@ class DocOperator:
             tf_idf = self.safe_list_get(items ,1)
             file1_dict[str(id)] = float(tf_idf)
         
-        
-
         for line in  file2.read().splitlines()[1:]:
             items = line.split()
             id = self.safe_list_get(items,0) 
             tf_idf = self.safe_list_get(items ,1)
             file2_dict[str(id)] = float(tf_idf)
-        
 
-        
         print ('==================================================')
         intersection =  set(file1_dict.keys()) & set(file2_dict.keys())  
         print (intersection)
