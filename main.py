@@ -6,7 +6,7 @@ from Model.DocOperator import DocOperator
 from collections import Counter
 
 from Model.TrainingClassHolder import TrainingClassHolder
-
+from Model.Cluster import Cluster
 import nltk
 
 
@@ -63,6 +63,11 @@ def main():
     # trainingData = TrainingClassHolder("./Static_txt/training.txt")
     # result_dict = trainingData.selectFeature(docOpe_obj.doc_list)
     # docOpe_obj.writeDictToFile('output.txt', result_dict)
+
+
+    # HW4 =====================================================================================
+    cluster_obj = Cluster()
+    cluster_obj.test()
 
 if __name__ == '__main__':
     main()
