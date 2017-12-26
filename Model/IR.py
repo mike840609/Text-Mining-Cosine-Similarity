@@ -4,7 +4,7 @@ import re
 
 from .Poter_Algo.Poter import PorterStemmer
 from .Poter_Algo.Poter2 import Porter2Stemmer
-# from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer
 
 
 # import nltk
@@ -67,15 +67,15 @@ class IR_operator:
     def stemming(self):
         # poter algorithm , Porter2Stemmer is better , but low performance 
 
-        stemmer = PorterStemmer()
+        # stemmer = PorterStemmer()
         # stemmer = Porter2Stemmer()
-        # wordnet_lemmatizer = WordNetLemmatizer()
+        wordnet_lemmatizer = WordNetLemmatizer()
 
         self.results = []
 
         for ele in self.arr:
-            self.results.append(PorterStemmer().stem(ele, 0,len(ele) -1))
-            # self.results.append(wordnet_lemmatizer.lemmatize(ele))
+            # self.results.append(PorterStemmer().stem(ele, 0,len(ele) -1))
+            self.results.append(wordnet_lemmatizer.lemmatize(ele))
             # self.results.append( stemmer.stem(ele))
 
 

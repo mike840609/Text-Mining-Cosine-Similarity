@@ -15,7 +15,7 @@ import nltk
 def main():
     
     # lemmatization
-    # nltk.download('wordnet')
+    nltk.download('wordnet')
 
     #  initialize obj
     
@@ -35,8 +35,9 @@ def main():
     
     # 1/3  Calculate DocumentFrequency & Generate dictionary.txt =========================  
     
-    docOpe_obj = DocOperator("./Static_txt/IRTM/")
-    # docOpe_obj = DocOperator("./Static_txt/test/")
+    # docOpe_obj = DocOperator("./Static_txt/IRTM/")
+    docOpe_obj = DocOperator("./Static_txt/test/")
+
     docOpe_obj.genrateDoc()
     docOpe_obj.docFreqCal()
     docOpe_obj.indexingDict()
@@ -56,7 +57,7 @@ def main():
     txt2 = 2
 
     consine_similarity = docOpe_obj.calCosineSimilarity("./Tf-Idf_unit_vector/", txt1 , txt2)
-    print ('file : {}   \nfile : {} \nconsine similarity is : {}'.format(str(txt1) ,str(txt2) ,str(consine_similarity)) )
+    # print ('file : {}   \nfile : {} \nconsine similarity is : {}'.format(str(txt1) ,str(txt2) ,str(consine_similarity)) )
     print ('all task done')
     
     # HW3 =====================================================================================
@@ -67,7 +68,7 @@ def main():
 
     # HW4 =====================================================================================
     cluster_obj = Cluster()
-    cluster_obj.test()
+    cluster_obj.EfficientHAC(docOpe_obj)
 
 if __name__ == '__main__':
     main()

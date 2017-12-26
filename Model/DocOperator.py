@@ -160,14 +160,14 @@ class DocOperator:
             tf_idf = self.safe_list_get(items ,1)
             file2_dict[str(id)] = float(tf_idf)
 
-        print ('==================================================')
+        # print ('==================================================')
         intersection =  set(file1_dict.keys()) & set(file2_dict.keys())  
-        print (intersection)
-        print ('==================================================')
+        # print (intersection)
+        # print ('==================================================')
         consine_similarity = 0
 
         for key in intersection:
-            print ('key : {} file1 : {}   file2 : {}'.format(str(key),str(file1_dict[key]),str(file2_dict[key])))
+            # print ('key : {} file1 : {}   file2 : {}'.format(str(key),str(file1_dict[key]),str(file2_dict[key])))
             consine_similarity += file1_dict[key] * file2_dict[key]
         
         return consine_similarity
