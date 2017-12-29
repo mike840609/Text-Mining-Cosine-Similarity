@@ -15,7 +15,7 @@ class Cluster:
         C = [[Element() for x in range (0, len(doc_list) + 1)]for y  in range(0 ,len(doc_list)+1)]
 
         # indicate which clusters are still available to be merged.
-        I = [1] * len(doc_list)
+        I = [1] * (len(doc_list) + 1 )
 
         # an array of priority queue
         P = [Element() for x in range (0, len(doc_list) + 1)]
@@ -30,6 +30,7 @@ class Cluster:
             for i_obj in doc_list:    
                 i = int(i_obj.id)
 
+                # print ("n : " + str(n) + " i : " + str(i))
                 consine_similarity = docOpe_obj.calCosineSimilarity("./Tf-Idf_unit_vector/", n , i )
                 C[n][i].setSim(consine_similarity)
                 C[n][i].setIndex(i)
@@ -44,7 +45,11 @@ class Cluster:
 
         
         #  Calculate phase =================================================
-        
+        for k in range(1 , len(doc_list)):
+            if I[k] = 1 :
+                # k1 = 
+            
+
             
     
         

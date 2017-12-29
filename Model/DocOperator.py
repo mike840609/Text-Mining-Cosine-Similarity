@@ -23,7 +23,7 @@ class DocOperator:
         stop_temp = open('Static_txt/stopList.txt').read()
         self.stopWord_list = stop_temp.lower().split()
 
-    
+
     def genrateDoc(self):
 
         self.doc_list = []
