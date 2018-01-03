@@ -1,4 +1,5 @@
 from Model.DocOperator import DocOperator
+from heapq_max import *
 
 
 class Cluster:
@@ -18,7 +19,8 @@ class Cluster:
         I = [1] * (len(doc_list) + 1 )
 
         # an array of priority queue
-        P = [Element() for x in range (0, len(doc_list) + 1)]
+        # P = [Element() for x in range (0, len(doc_list) + 1)]
+        P = [None]*1096
 
         #  a list of merges
         A = []
@@ -28,18 +30,34 @@ class Cluster:
             for doc_2 in doc_list : 
 
                 # print(doc_1.terms["term"]["tf-idf"])
-
                 cos_sin = 0 
 
                 for key in doc_1.terms:
                     if key in doc_2.terms:
                         cos_sin += doc_1.terms[key]["tf-idf"] * doc_2.terms[key]["tf-idf"]
 
-                C[int(doc_1.id)][int(doc_2.id)] = cos_sin
+                C[int(doc_1.id)][int(doc_2.id)] = Element(cos_sin , int(doc_2.id))
+
+        # print(C[1][2].index)
+        # print(C[5][6].index)
+
+        #  add heap to array P
+        for doc in doc_list:
+            
+            #  call by value 
+            P[int(doc.id)] = C[int(doc.id)][:]
+            heapify_max(P[int(doc.id)])
+
+            # print ([(ele.index, ele.sim) for ele in P[int(doc.id)]])
+            # print("==================================")
+            # print ([(ele.index, ele.sim) for ele in C[int(doc.id)]])
+        
 
         #  Calculate phase =================================================
-        # for k in range(1 , len(doc_list)):
-            # if I[k] = 1 :
+        # for i in range(1,len(doc_list)):
+            # print (i)
+
+            
                 
             
 
@@ -60,16 +78,28 @@ class Element(object) :
         self.sim = sim
         self.index = index
 
-    
-    def setSim(self,sim):
-        self.sim = sim
+    def __lt__(self, other):
+        return self.sim < other.sim
 
-    def setIndex (self, ind):
-        self.index = ind
+    def __le__(self, other):
+        return self.sim <= other.sim
+      
+    def __eq__(self, other):
+        return self.sim == other.sim
+      
+    def __ne__(self, other):
+        return self.sim != other.sim
+      
+    def __gt__(self, other):
+        return self.sim > other.sim
+      
+    def __ge__(self, other):
+        return self.sim >= other.sim
+
+    def __str__(self):
+        return "ind : " + str(self.index) + " sim : " + str(self.sim)
 
 
-
-    # 
-
+    # print ([(ele.index, ele.sim)for ele in heap_max ])
 
 

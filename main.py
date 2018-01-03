@@ -48,17 +48,17 @@ def main():
     
     # 2/3 Calctulate TF-IDF & Generate unit vector for terms in each documents's ===========
     docOpe_obj.cal_Tf_Idf()
-    docOpe_obj.write_Tf_Idf_ToFile('./Tf-Idf_unit_vector/')
+    # generate term tf_idf for each document
+    # docOpe_obj.write_Tf_Idf_ToFile('./Tf-Idf_unit_vector/') 
     print ('tf-idf task done')
 
     # 3/3 Calculate Consine Similarity between two Doc =======================================
     
-    txt1 = 1
-    txt2 = 2
-
-    consine_similarity = docOpe_obj.calCosineSimilarity("./Tf-Idf_unit_vector/", txt1 , txt2)
+    # txt1 = 1
+    # txt2 = 2
+    # consine_similarity = docOpe_obj.calCosineSimilarity("./Tf-Idf_unit_vector/", txt1 , txt2)
     # print ('file : {}   \nfile : {} \nconsine similarity is : {}'.format(str(txt1) ,str(txt2) ,str(consine_similarity)) )
-    print ('all task done')
+    # print ('all task done')
     
     # HW3 =====================================================================================
     # trainingData = TrainingClassHolder("./Static_txt/training.txt")

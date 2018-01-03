@@ -97,14 +97,11 @@ class DocOperator:
             file_path = path +'%s.txt' %str(doc.id)
             
             with open(file_path , "w") as f :
-
-                # print "document id: " + str(doc.id) + '================================================='
-                # print "doc length : " + str(len(doc.getTermFrequency()))
+                
                 f.write(str(len(doc.getTermFrequency())) + '\n')
 
                 for term in doc.getTermFrequency():
-                    # print  self.documentsFreq[term]['index']
-                    # print  doc.getTermDict()[term]['tf-idf']
+                    
                     f.write( '{:<15}'.format(self.documentsFreq[term]['index']) + '{:<30}'.format(doc.getTermDict()[term]['tf-idf']) + '\n')
 
     def getDoc(self):
