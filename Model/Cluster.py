@@ -24,30 +24,23 @@ class Cluster:
         A = []
 
         #  initialize phase =================================================
-        for n_obj in doc_list:
-            n = int(n_obj.id)
+        for doc_1 in doc_list : 
+            for doc_2 in doc_list : 
 
-            for i_obj in doc_list:    
-                i = int(i_obj.id)
+                # print(doc_1.terms["term"]["tf-idf"])
 
-                # print ("n : " + str(n) + " i : " + str(i))
-                consine_similarity = docOpe_obj.calCosineSimilarity("./Tf-Idf_unit_vector/", n , i )
-                C[n][i].setSim(consine_similarity)
-                C[n][i].setIndex(i)
+                cos_sin = 0 
 
-                # print(consine_similarity)
-            
-            # insert queue to Array P 
-            C[n][n].setSim(0) 
-            
-            # TODO: Maximum Heap sort List element
-            P[n] = sorted(C[n], key= lambda x : x.sim , reverse=True)
+                for key in doc_1.terms:
+                    if key in doc_2.terms:
+                        cos_sin += doc_1.terms[key]["tf-idf"] * doc_2.terms[key]["tf-idf"]
 
-        
+                C[int(doc_1.id)][int(doc_2.id)] = cos_sin
+
         #  Calculate phase =================================================
-        for k in range(1 , len(doc_list)):
-            if I[k] = 1 :
-                # k1 = 
+        # for k in range(1 , len(doc_list)):
+            # if I[k] = 1 :
+                
             
 
             

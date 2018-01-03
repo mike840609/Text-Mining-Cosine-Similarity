@@ -7,7 +7,7 @@ from collections import Counter
 
 from Model.TrainingClassHolder import TrainingClassHolder
 from Model.Cluster import Cluster
-import nltk
+# import nltk
 
 
 #  R06725054
@@ -15,7 +15,7 @@ import nltk
 def main():
     
     # lemmatization
-    nltk.download('wordnet')
+    # nltk.download('wordnet')
 
     #  initialize obj
     
@@ -35,8 +35,8 @@ def main():
     
     # 1/3  Calculate DocumentFrequency & Generate dictionary.txt =========================  
     
-    # docOpe_obj = DocOperator("./Static_txt/IRTM/")
-    docOpe_obj = DocOperator("./Static_txt/test/")
+    docOpe_obj = DocOperator("./Static_txt/IRTM/")
+    # docOpe_obj = DocOperator("./Static_txt/test/")
 
     docOpe_obj.genrateDoc()
     docOpe_obj.docFreqCal()
