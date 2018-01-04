@@ -1,7 +1,6 @@
 from Model.DocOperator import DocOperator
 from heapq_max import *
 
-
 class Cluster:
     def __init__(self):
         pass
@@ -37,38 +36,28 @@ class Cluster:
                         cos_sin += doc_1.terms[key]["tf-idf"] * doc_2.terms[key]["tf-idf"]
 
                 C[int(doc_1.id)][int(doc_2.id)] = Element(cos_sin , int(doc_2.id))
-
-        # print(C[1][2].index)
-        # print(C[5][6].index)
-
-        #  add heap to array P
-        for doc in doc_list:
             
+            #  add heap to array P
             #  call by value 
-            P[int(doc.id)] = C[int(doc.id)][:]
-            heapify_max(P[int(doc.id)])
+            P[int(doc_1.id)] = C[int(doc_1.id)][:]
+            heapify_max(P[int(doc_1.id)])
 
-            # print ([(ele.index, ele.sim) for ele in P[int(doc.id)]])
-            # print("==================================")
-            # print ([(ele.index, ele.sim) for ele in C[int(doc.id)]])
-        
+            # delete self sim
+            P[int(doc_1.id)] = [item for item in  P[int(doc_1.id)] if item.index != int(doc_1.id)]
+            # print ([(ele.index, ele.sim) for ele in P[int(doc_1.id)]])
 
-        #  Calculate phase =================================================
-        # for i in range(1,len(doc_list)):
-            # print (i)
+        # print(C[1][2])
+        # print(C[5][6])
 
+        #  Calculate phase ==================================================================================================
+        for time in range(1,len(doc_list)):
+            for k in range(1,len(doc_list)):
+                print(P[k][0])
+            break
             
-                
-            
 
-            
-    
-        
-        
-        
-                
 
-                 
+
 
 class Element(object) :
     sim  = 0
