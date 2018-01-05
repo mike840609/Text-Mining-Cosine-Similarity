@@ -68,15 +68,7 @@ class Cluster:
                         max_sim = P[max_idx][0].sim
 
             k1_idx = max_idx
-            k2_idx = P[k1_idx][0].index
-
-            # debug
-            # if k1_idx == k2_idx:
-            #     print (k1_idx)
-            #     print (k2_idx)
-            #     print ([(ele.index, ele.sim) for ele in P[k1_idx]])
-            #     break
-            
+            k2_idx = P[k1_idx][0].index            
 
             A.append([k1_idx,k2_idx])
 
@@ -91,14 +83,12 @@ class Cluster:
                     # delete (C[i][k1])  , delete (C[i][k2])
                     P[idx] = [ele for ele in P[idx] if (ele.index != k1_idx and ele.index != k2_idx)]
                     
-
                     C[k1_idx][idx].sim = min(C[k1_idx][idx].sim , C[k2_idx][idx].sim)
                     P[k1_idx].append(C[k1_idx][idx])
                     
                     C[idx][k1_idx].sim = C[k1_idx][idx].sim
                     P[idx].append(C[idx][k1_idx])
                     
-
                     heapify_max(P[idx])
                     heapify_max(P[k1_idx])
 
@@ -107,7 +97,50 @@ class Cluster:
 
         return A
                     
+    
+    def writeClusterToFile(self, pair_list):
+
+        cluster_num  = [ 8 ,13 ,20 ] 
+
+        # cluster_num  = [ 20] 
+        for num in cluster_num:
+            #  8 ,13, 20     
+            # init list ============================================================================================================
+            Clusters = list(range(1,1096))
+            for idx,ele in enumerate(Clusters):
+                Clusters[idx] = [ele]
+
+            # print (Clusters)
+
+            # Calculate  ============================================================================================================
+            for pair in pair_list:
+                if len(Clusters) == num:
+                    break
             
+                idx1 = -1
+                idx2 = -1
+
+                for idx , clu in enumerate(Clusters):
+                    # print (clu)
+                    if pair[0] in clu:
+                        idx1 = idx
+                    if pair[1] in clu:
+                        idx2 = idx
+                
+                Clusters[idx1] = Clusters[idx1] + Clusters[idx2]
+                del Clusters[idx2]
+            
+            # write to file ========================================================================================================
+            text_file = open(str(num) + '.txt', "w")
+            for idx , clu in enumerate(Clusters) :
+                Clusters[idx] =  sorted(clu)
+                
+                for doc_id in Clusters[idx]:
+                    text_file.write(str(doc_id)+'\n')
+                
+                text_file.write('\n')
+
+
 
 
 
