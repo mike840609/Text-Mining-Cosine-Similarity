@@ -51,8 +51,18 @@ class Cluster:
 
         #  Calculate phase ==================================================================================================
         for time in range(1,len(doc_list)):
-            for k in range(1,len(doc_list)):
-                print(P[k][0])
+
+            max_sim = 0
+            max_idx = 0
+
+            for idx in range(1,len(doc_list)):
+                if P[idx][0].sim > max_sim:
+                    max_idx = idx
+                    max_sim = P[idx][0].sim
+
+            print (max_sim)
+            print (max_idx)
+            
             break
             
 
