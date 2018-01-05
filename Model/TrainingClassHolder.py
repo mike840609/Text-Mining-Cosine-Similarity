@@ -46,7 +46,7 @@ class TrainingClassHolder:
     def selectFeature(self,docList_obj):
 
         # create classDocFrequency ===================================
-        # 每個class 編號的 中 term 的doc frequency
+        # doc frequency for each term in each class
         for classId in self.classDicID:
             
             self.classDocFrequency[classId] = []

@@ -41,29 +41,72 @@ class Cluster:
             #  call by value 
             P[int(doc_1.id)] = C[int(doc_1.id)][:]
             heapify_max(P[int(doc_1.id)])
-
+            # P[int(doc_1.id)].sort(key=lambda x: x.sim, reverse=True)
+            
             # delete self sim
             P[int(doc_1.id)] = [item for item in  P[int(doc_1.id)] if item.index != int(doc_1.id)]
-            # print ([(ele.index, ele.sim) for ele in P[int(doc_1.id)]])
 
-        # print(C[1][2])
-        # print(C[5][6])
+        # print([(ele.index, ele.sim) for ele in C[1]])
+        # print ([(ele.index, ele.sim) for ele in P[1]])
+        # print("=============")
+        # print([(ele.index, ele.sim) for ele in C[2]])
+        # print ([(ele.index, ele.sim) for ele in P[2]])
+    
 
         #  Calculate phase ==================================================================================================
+
         for time in range(1,len(doc_list)):
 
-            max_sim = 0
+            max_sim = -1
             max_idx = 0
 
-            for idx in range(1,len(doc_list)):
-                if P[idx][0].sim > max_sim:
-                    max_idx = idx
-                    max_sim = P[idx][0].sim
+            # argmax  1 - 1095 
+            for idx in range(1,1096):
+                if I[idx] == 1 : 
+                    if P[idx][0].sim > max_sim:
+                        max_idx = idx
+                        max_sim = P[max_idx][0].sim
 
-            print (max_sim)
-            print (max_idx)
+            k1_idx = max_idx
+            k2_idx = P[k1_idx][0].index
+
+            # debug
+            # if k1_idx == k2_idx:
+            #     print (k1_idx)
+            #     print (k2_idx)
+            #     print ([(ele.index, ele.sim) for ele in P[k1_idx]])
+            #     break
             
-            break
+
+            A.append([k1_idx,k2_idx])
+
+            I[k2_idx] = 0 
+
+            P[k1_idx] = []
+
+            for idx in range(1,1096):
+
+                if (I[idx] == 1 and idx != k1_idx):
+
+                    # delete (C[i][k1])  , delete (C[i][k2])
+                    P[idx] = [ele for ele in P[idx] if (ele.index != k1_idx and ele.index != k2_idx)]
+                    
+
+                    C[k1_idx][idx].sim = min(C[k1_idx][idx].sim , C[k2_idx][idx].sim)
+                    P[k1_idx].append(C[k1_idx][idx])
+                    
+                    C[idx][k1_idx].sim = C[k1_idx][idx].sim
+                    P[idx].append(C[idx][k1_idx])
+                    
+
+                    heapify_max(P[idx])
+                    heapify_max(P[k1_idx])
+
+                    # P[idx].sort(key=lambda x: x.sim, reverse=True)
+
+
+        return A
+                    
             
 
 

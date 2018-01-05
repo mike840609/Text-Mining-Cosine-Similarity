@@ -68,7 +68,8 @@ def main():
 
     # HW4 =====================================================================================
     cluster_obj = Cluster()
-    cluster_obj.EfficientHAC(docOpe_obj)
+    A = cluster_obj.EfficientHAC(docOpe_obj)
+    print (A)
 
 if __name__ == '__main__':
     main()
